@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #1a0933 0%, #2d1b69 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 20px;
+}
+
+.menu-container {
+    @apply bg-black/40 backdrop-blur-md border border-purple-500/30 shadow-2xl shadow-purple-500/20 rounded-xl;
+}
+
+.shimmer {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
+    transform: translateX(-200%);
+    transition: transform 0.7s;
+}
+
+.shimmer-active {
+    transform: translateX(200%);
+}
+
+.icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    transition: transform 0.2s;
+}
+
+.icon-lg {
+    width: 7rem;
+    height: 7rem;
+}
+
+.primary-btn {
+    @apply w-full h-14 group relative overflow-hidden bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white border-0 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 transition-all duration-300 rounded-lg flex items-center justify-center gap-3;
+}
+
+.secondary-btn {
+    @apply w-full h-14 bg-slate-700/50 hover:bg-slate-600/50 text-white border border-slate-600/50 shadow-md rounded-lg flex items-center justify-center gap-3 transition-colors duration-300;
+}
+
+.tertiary-btn {
+    @apply w-full h-14 bg-transparent hover:bg-white/5 text-purple-300 border border-purple-500/40 hover:border-purple-400/60 shadow-md rounded-lg flex items-center justify-center gap-3 transition-colors duration-300;
+}
+
+.button-group:hover .icon {
+    transform: scale(1.1);
+}
+
+.background-elements {
+    @apply absolute inset-0 pointer-events-none overflow-hidden -z-10;
+}
+
+.blur-circle {
+    @apply absolute w-72 h-72 rounded-full blur-3xl;
+}

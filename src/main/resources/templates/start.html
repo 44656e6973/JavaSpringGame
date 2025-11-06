@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Игровое меню</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+<div class="w-full max-w-md mx-auto px-4">
+    <div class="bg-black/40 backdrop-blur-md border border-purple-500/30 shadow-2xl shadow-purple-500/20 rounded-xl">
+        <div class="p-8 space-y-8">
+            <div class="text-center space-y-2">
+                <div class="inline-flex items-center justify-center w-30 h-20 mb-4">
+                    <img src="../icons/icon3.png" alt="Gamepad" class="icon-lg">
+                </div>
+                <h1 class="text-white text-4xl">Испытание Рассудка</h1>
+                <p class="text-purple-300/80">Добро пожаловать!</p>
+            </div>
+
+            <!-- Menu Buttons -->
+            <div class="space-y-3">
+                <button id="single" class="w-full h-14 group relative overflow-hidden bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white border-0 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 transition-all duration-300 rounded-lg flex items-center justify-center gap-3 button-group">
+                    <img src="../icons/gamepad.svg" alt="Gamepad" class="icon">
+                    <span>Одиночная игра</span>
+                    <div class="shimmer"></div>
+                </button>
+
+                <button id="multiplayer" class="w-full h-14 group relative overflow-hidden bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white border-0 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 transition-all duration-300 rounded-lg flex items-center justify-center gap-3 button-group">
+                    <img src="../icons/group.svg" alt="Users" class="icon">
+                    <span>Сетевая игра</span>
+                    <div class="shimmer"></div>
+                </button>
+
+                <button id="settings" class="w-full h-14 bg-slate-700/50 hover:bg-slate-600/50 text-white border border-slate-600/50 shadow-md rounded-lg flex items-center justify-center gap-3 transition-colors duration-300 button-group">
+                    <img src="../icons/settings.svg" alt="Settings" class="icon">
+                    <span>Настройки</span>
+                </button>
+
+                <button id="donation" class="w-full h-14 bg-transparent hover:bg-white/5 text-purple-300 border border-purple-500/40 hover:border-purple-400/60 shadow-md rounded-lg flex items-center justify-center gap-3 transition-colors duration-300 button-group">
+                    <img src="../icons/heart.svg" alt="Heart" class="icon">
+                    <span>Помощь разработчику</span>
+                </button>
+            </div>
+
+            <!-- Footer -->
+            <div class="text-center pt-4">
+                <p class="text-purple-400/60">v1.0.0</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Decorative Elements -->
+<div class="absolute inset-0 pointer-events-none overflow-hidden -z-10">
+    <div class="absolute top-20 left-10 w-72 h-72 bg-purple-500/20 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-20 right-10 w-72 h-72 bg-pink-500/20 rounded-full blur-3xl"></div>
+</div>
+<script src="../static/startSkript.js"></script>
+
+
+</body>
+</html>
