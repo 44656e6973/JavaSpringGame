@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Игровой Интерфейс</title>
+    <link rel="stylesheet" href="../static/battlefield_style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+</head>
+<body>
+
+<div class="game-container">
+
+    <section class="character-section opponents-section">
+        <h2>ПРОТИВНИКИ</h2>
+        <div class="card-container">
+
+            <div class="card opponent-card">
+                <span class="card-number">1</span>
+                <img src="https://placehold.co/200x150/5a2a2a/white?text=Темный+маг" alt="Темный маг">
+                <div class="card-info">
+                    <h3 class="card-name">Темный маг</h3>
+                    <div class="stat-bar hp">
+                        <span class="stat-label">HP</span>
+                        <div class="bar-background">
+                            <div class="bar-value" style="width: 87.5%;"></div> <span class="stat-text">70/80</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card opponent-card">
+                <span class="card-number">2</span>
+                <img src="https://placehold.co/200x150/2a5a3a/white?text=Дракон" alt="Дракон">
+                <div class="card-info">
+                    <h3 class="card-name">Дракон</h3>
+                    <div class="stat-bar hp">
+                        <span class="stat-label">HP</span>
+                        <div class="bar-background">
+                            <div class="bar-value" style="width: 80%;"></div> <span class="stat-text">120/150</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card opponent-card">
+                <span class="card-number">3</span>
+                <img src="https://placehold.co/200x150/333333/white?text=Скелет" alt="Скелет-воин">
+                <div class="card-info">
+                    <h3 class="card-name">Скелет-воин</h3>
+                    <div class="stat-bar hp">
+                        <span class="stat-label">HP</span>
+                        <div class="bar-background">
+                            <div class="bar-value" style="width: 80%;"></div> <span class="stat-text">40/50</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="divider">
+        <span class="line"></span>
+        <button class="battlefield-btn">ПОЛЕ БИТВЫ</button>
+        <span class="line"></span>
+    </div>
+
+    <section class="character-section heroes-section">
+        <h2>ГЕРОИ</h2>
+        <div class="card-container">
+
+            <div class="card hero-card">
+                <span class="card-number">1</span>
+                <div class="turn-indicator">ХОД</div>
+                <img src="https://placehold.co/200x150/4a4a7a/white?text=Рыцарь" alt="Рыцарь">
+                <div class="card-info">
+                    <h3 class="card-name">Рыцарь</h3>
+                    <div class="stat-bar hp">
+                        <span class="stat-label">HP</span>
+                        <div class="bar-background">
+                            <div class="bar-value" style="width: 85%;"></div> <span class="stat-text">85/100</span>
+                        </div>
+                    </div>
+                    <div class="stat-bar mana">
+                        <span class="stat-label">Мана</span>
+                        <div class="bar-background">
+                            <div class="bar-value" style="width: 60%;"></div> <span class="stat-text">30/50</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card hero-card">
+                <span class="card-number">2</span>
+                <div class="turn-indicator">ХОД</div>
+                <img src="https://placehold.co/200x150/7a4a4a/white?text=Маг" alt="Маг">
+                <div class="card-info">
+                    <h3 class="card-name">Маг</h3>
+                    <div class="stat-bar hp">
+                        <span class="stat-label">HP</span>
+                        <div class="bar-background">
+                            <div class="bar-value" style="width: 75%;"></div> <span class="stat-text">45/60</span>
+                        </div>
+                    </div>
+                    <div class="stat-bar mana">
+                        <span class="stat-label">Мана</span>
+                        <div class="bar-background">
+                            <div class="bar-value" style="width: 80%;"></div> <span class="stat-text">80/100</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card hero-card active"> <span class="card-number">3</span>
+                <div class="turn-indicator">ХОД</div>
+                <img src="https://placehold.co/200x150/4a7a4a/white?text=Лучник" alt="Лучник">
+                <div class="card-info">
+                    <h3 class="card-name">Лучник</h3>
+                    <div class="stat-bar hp">
+                        <span class="stat-label">HP</span>
+                        <div class="bar-background">
+                            <div class="bar-value" style="width: 78.57%;"></div> <span class="stat-text">55/70</span>
+                        </div>
+                    </div>
+                    <div class="stat-bar mana">
+                        <span class="stat-label">Мана</span>
+                        <div class="bar-background">
+                            <div class="bar-value" style="width: 66.67%;"></div> <span class="stat-text">40/60</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card hero-card">
+                <span class="card-number">4</span>
+                <div class="turn-indicator">ХОД</div>
+                <img src="https://placehold.co/200x150/7a7a7a/white?text=Целитель" alt="Целитель">
+                <div class="card-info">
+                    <h3 class="card-name">Целитель</h3>
+                    <div class="stat-bar hp">
+                        <span class="stat-label">HP</span>
+                        <div class="bar-background">
+                            <div class="bar-value" style="width: 76.92%;"></div> <span class="stat-text">50/65</span>
+                        </div>
+                    </div>
+                    <div class="stat-bar mana">
+                        <span class="stat-label">Мана</span>
+                        <div class="bar-background">
+                            <div class="bar-value" style="width: 75%;"></div> <span class="stat-text">90/120</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="controls">
+        <button class="next-turn-btn">Следующий ход</button>
+    </div>
+
+</div>
+
+<script src="../static/battlefield_script.js"></script>
+</body>
+</html>
