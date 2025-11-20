@@ -9,6 +9,11 @@ document.getElementById('multiplayer').addEventListener('click', function() {
     handleShimmerEffect(this);
 });
 
+document.getElementById('hero_group').addEventListener('click', function (){
+    console.log('hero_group cliked')
+    handleShimmerEffect(this)
+})
+
 document.getElementById('settings').addEventListener('click', function() {
     console.log('Settings clicked');
 });
