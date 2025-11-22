@@ -1,17 +1,63 @@
 package com.gavagame.JavaSpringGame.Models;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 
-@Embeddable
-public class Session_participants implements Serializable {
-    @Column(name = "Session_ID")
-    private Long session_ID;
+@Entity
+@Table(name = "session_participants")
+public class Session_participants{
+
+    @EmbeddedId
+    private SessionParticipantId id;
+
+    @ManyToOne
+    @MapsId("sessionId")
+    @JoinColumn(name = "Session_ID",
+            foreignKey = @ForeignKey(name = "fk_participant_session"),
+            nullable = false)
+    private Game_session session;
+
+    @ManyToOne
+    @MapsId("userId")
+    @JoinColumn(name = "User_ID",
+            foreignKey = @ForeignKey(name = "fk_participant_user"),
+            nullable = false)
+    private User user;
 
 
+    public Session_participants(SessionParticipantId id, Game_session session, User user) {
+        this.id = id;
+        this.session = session;
+        this.user = user;
+    }
+
+    public Session_participants() {
+
+    }
+
+    public SessionParticipantId getId() {
+        return id;
+    }
+
+    public void setId(SessionParticipantId id) {
+        this.id = id;
+    }
+
+    public Game_session getSession() {
+        return session;
+    }
+
+    public void setSession(Game_session session) {
+        this.session = session;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

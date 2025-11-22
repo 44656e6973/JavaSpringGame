@@ -69,4 +69,15 @@ public class User {
     public void setCreation_date(LocalDateTime creation_date) {
         this.creation_date = creation_date;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password_hash='" + password_hash + '\'' +
+                ", name='" + name + '\'' +
+                ", creation_date=" + creation_date +
+                '}';
+    }
 }
