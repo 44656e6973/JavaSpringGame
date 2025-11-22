@@ -89,5 +89,5 @@ public class User {
     private List<Hero_group> ownedGroups = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SessionParticipant> participatedSessions = new ArrayList<>();
+    private List<Session_participants> participatedSessions = new ArrayList<>();
 }
