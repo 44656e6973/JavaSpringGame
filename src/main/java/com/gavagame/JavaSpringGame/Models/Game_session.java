@@ -1,21 +1,20 @@
 package com.gavagame.JavaSpringGame.Models;
 
-
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "game_session")
+public class Game_session {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long session_ID;
 
-    private String login;
-    private String password_hash;
-    private String name;
     private LocalDateTime creation_date;
+    private LocalDateTime end_date;
+    private String server_IP;
+    private int spectator_limit;
 
 
 }
