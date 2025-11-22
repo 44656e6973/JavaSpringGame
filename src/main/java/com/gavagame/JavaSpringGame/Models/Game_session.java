@@ -11,8 +11,9 @@ public class Game_session {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long session_ID;
 
+    @ManyToOne
     @JoinColumn(name = "User_ID", nullable = false, foreignKey = @ForeignKey(name = "fk_session_creator"))
-    private Long user_ID;
+    private User creator;
 
     private LocalDateTime creation_date;
     private LocalDateTime end_date;

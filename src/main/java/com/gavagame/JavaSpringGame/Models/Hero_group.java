@@ -12,15 +12,17 @@ public class Hero_group {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long group_ID;
 
-    @JoinColumn(name = "User_ID", nullable = false, foreignKey = @ForeignKey(name = "fk_group_owner"))
-    private Long user_ID;
+    @ManyToOne
+    @JoinColumn(name = "User_ID", nullable = false,
+            foreignKey = @ForeignKey(name = "fk_group_owner"))
+    private User owner;
 
     private LocalDateTime creatrion_date;
     private LocalDateTime end_date;
 
-    public Hero_group(Long group_ID, Long user_ID, LocalDateTime creatrion_date, LocalDateTime end_date) {
+    public Hero_group(Long group_ID, User owner, LocalDateTime creatrion_date, LocalDateTime end_date) {
         this.group_ID = group_ID;
-        this.user_ID = user_ID;
+        this.owner = owner;
         this.creatrion_date = creatrion_date;
         this.end_date = end_date;
     }
@@ -37,12 +39,12 @@ public class Hero_group {
         this.group_ID = group_ID;
     }
 
-    public Long getUser_ID() {
-        return user_ID;
+    public User getUser_ID() {
+        return owner;
     }
 
-    public void setUser_ID(Long user_ID) {
-        this.user_ID = user_ID;
+    public void setUser_ID(User owner) {
+        this.owner = owner;
     }
 
     public LocalDateTime getCreatrion_date() {

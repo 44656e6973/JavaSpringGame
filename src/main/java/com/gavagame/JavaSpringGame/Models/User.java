@@ -4,6 +4,8 @@ package com.gavagame.JavaSpringGame.Models;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -80,4 +82,12 @@ public class User {
                 ", creation_date=" + creation_date +
                 '}';
     }
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Game_session> createdSessions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Hero_group> ownedGroups = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SessionParticipant> participatedSessions = new ArrayList<>();
 }

@@ -1,11 +1,10 @@
 package com.gavagame.JavaSpringGame.Models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Embeddable
 public class SessionParticipantId implements Serializable {
@@ -15,6 +14,8 @@ public class SessionParticipantId implements Serializable {
     @Column(name = "User_ID", nullable = false)
     private Long userId;
 
+    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Session_participants> participants = new ArrayList<>();
 
     public SessionParticipantId(Long sessionId, Long userId) {
         this.sessionId = sessionId;
