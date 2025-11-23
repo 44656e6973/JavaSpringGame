@@ -3,6 +3,8 @@ package com.gavagame.JavaSpringGame.Models;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -17,13 +19,16 @@ public class Hero_group {
             foreignKey = @ForeignKey(name = "fk_group_owner"))
     private User owner;
 
-    private LocalDateTime creatrion_date;
+    @OneToMany(mappedBy = "group_ID", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Hero> heroes = new ArrayList<>();
+
+    private LocalDateTime creation_date;
     private LocalDateTime end_date;
 
-    public Hero_group(Long group_ID, User owner, LocalDateTime creatrion_date, LocalDateTime end_date) {
+    public Hero_group(Long group_ID, User owner, LocalDateTime creation_date, LocalDateTime end_date) {
         this.group_ID = group_ID;
         this.owner = owner;
-        this.creatrion_date = creatrion_date;
+        this.creation_date = creation_date;
         this.end_date = end_date;
     }
 
@@ -48,11 +53,11 @@ public class Hero_group {
     }
 
     public LocalDateTime getCreatrion_date() {
-        return creatrion_date;
+        return creation_date;
     }
 
-    public void setCreatrion_date(LocalDateTime creatrion_date) {
-        this.creatrion_date = creatrion_date;
+    public void setCreatrion_date(LocalDateTime creation_date) {
+        this.creation_date = creation_date;
     }
 
     public LocalDateTime getEnd_date() {

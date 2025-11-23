@@ -8,6 +8,12 @@ import java.io.Serializable;
 @Entity
 @Table(name = "session_participants")
 public class Session_participants{
+    public Session_participants(SessionParticipantId id, Game_session session, User user, String role) {
+        this.id = id;
+        this.session = session;
+        this.user = user;
+        this.role = role;
+    }
 
     @EmbeddedId
     private SessionParticipantId id;
@@ -26,12 +32,11 @@ public class Session_participants{
             nullable = false)
     private User user;
 
+    @Column
+    private String role;
 
-    public Session_participants(SessionParticipantId id, Game_session session, User user) {
-        this.id = id;
-        this.session = session;
-        this.user = user;
-    }
+
+
 
     public Session_participants() {
 

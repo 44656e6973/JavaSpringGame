@@ -14,8 +14,6 @@ public class SessionParticipantId implements Serializable {
     @Column(name = "User_ID", nullable = false)
     private Long userId;
 
-    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Session_participants> participants = new ArrayList<>();
 
     public SessionParticipantId(Long sessionId, Long userId) {
         this.sessionId = sessionId;
