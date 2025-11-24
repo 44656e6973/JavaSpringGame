@@ -10,9 +10,21 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 public class User {
+
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Game_session> createdSessions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Hero_group> ownedGroups = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Session_participants> participatedSessions = new ArrayList<>();
 
     private String login;
     private String password_hash;
@@ -71,23 +83,41 @@ public class User {
     public void setCreation_date(LocalDateTime creation_date) {
         this.creation_date = creation_date;
     }
+    public List<Game_session> getCreatedSessions() {
+        return createdSessions;
+    }
 
+    public void setCreatedSessions(List<Game_session> createdSessions) {
+        this.createdSessions = createdSessions;
+    }
+
+    public List<Hero_group> getOwnedGroups() {
+        return ownedGroups;
+    }
+
+    public void setOwnedGroups(List<Hero_group> ownedGroups) {
+        this.ownedGroups = ownedGroups;
+    }
+
+    public List<Session_participants> getParticipatedSessions() {
+        return participatedSessions;
+    }
+
+    public void setParticipatedSessions(List<Session_participants> participatedSessions) {
+        this.participatedSessions = participatedSessions;
+    }
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
+                ", createdSessions=" + createdSessions +
+                ", ownedGroups=" + ownedGroups +
+                ", participatedSessions=" + participatedSessions +
                 ", login='" + login + '\'' +
                 ", password_hash='" + password_hash + '\'' +
                 ", name='" + name + '\'' +
                 ", creation_date=" + creation_date +
                 '}';
     }
-    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Game_session> createdSessions = new ArrayList<>();
 
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Hero_group> ownedGroups = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Session_participants> participatedSessions = new ArrayList<>();
 }

@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "session_participants")
-public class Session_participants{
+public class Session_participants {
     public Session_participants(SessionParticipantId id, Game_session session, User user, String role) {
         this.id = id;
         this.session = session;
@@ -34,8 +34,6 @@ public class Session_participants{
 
     @Column
     private String role;
-
-
 
 
     public Session_participants() {
@@ -65,4 +63,8 @@ public class Session_participants{
     public void setUser(User user) {
         this.user = user;
     }
+
+    public String getRole() {return role;}
+
+    public void setRole(String role) {this.role = role;}
 }

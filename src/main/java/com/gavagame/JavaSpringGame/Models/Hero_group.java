@@ -52,11 +52,31 @@ public class Hero_group {
         this.owner = owner;
     }
 
-    public LocalDateTime getCreatrion_date() {
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public List<Hero> getHeroes() {
+        return heroes;
+    }
+
+    public void setHeroes(List<Hero> heroes) {
+        this.heroes = heroes;
+    }
+
+    public LocalDateTime getCreation_date() {
         return creation_date;
     }
 
-    public void setCreatrion_date(LocalDateTime creation_date) {
+    public LocalDateTime getCreationDate() {
+        return creation_date;
+    }
+
+    public void setCreation_date(LocalDateTime creation_date) {
         this.creation_date = creation_date;
     }
 
