@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "game_session")
@@ -94,7 +95,16 @@ public class Game_session {
     private int spectator_limit;
     private String status;
 
-    
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Game_session that = (Game_session) o;
+        return Objects.equals(session_ID, that.session_ID) && Objects.equals(creator, that.creator);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(session_ID, creator);
+    }
 }
