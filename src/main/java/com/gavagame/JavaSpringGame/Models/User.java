@@ -18,13 +18,13 @@ public class User {
     private Long id;
 
     @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Game_session> createdSessions = new ArrayList<>();
+    private List<GameSession> createdSessions = new ArrayList<>();
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Hero_group> ownedGroups = new ArrayList<>();
+    private List<HeroGroup> ownedGroups = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Session_participants> participatedSessions = new ArrayList<>();
+    private List<SessionParticipants> participatedSessions = new ArrayList<>();
 
     private String login;
     private String password_hash;
@@ -83,27 +83,27 @@ public class User {
     public void setCreation_date(LocalDateTime creation_date) {
         this.creation_date = creation_date;
     }
-    public List<Game_session> getCreatedSessions() {
+    public List<GameSession> getCreatedSessions() {
         return createdSessions;
     }
 
-    public void setCreatedSessions(List<Game_session> createdSessions) {
+    public void setCreatedSessions(List<GameSession> createdSessions) {
         this.createdSessions = createdSessions;
     }
 
-    public List<Hero_group> getOwnedGroups() {
+    public List<HeroGroup> getOwnedGroups() {
         return ownedGroups;
     }
 
-    public void setOwnedGroups(List<Hero_group> ownedGroups) {
+    public void setOwnedGroups(List<HeroGroup> ownedGroups) {
         this.ownedGroups = ownedGroups;
     }
 
-    public List<Session_participants> getParticipatedSessions() {
+    public List<SessionParticipants> getParticipatedSessions() {
         return participatedSessions;
     }
 
-    public void setParticipatedSessions(List<Session_participants> participatedSessions) {
+    public void setParticipatedSessions(List<SessionParticipants> participatedSessions) {
         this.participatedSessions = participatedSessions;
     }
     @Override

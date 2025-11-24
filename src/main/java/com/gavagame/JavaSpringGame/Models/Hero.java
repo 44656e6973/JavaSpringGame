@@ -2,8 +2,6 @@ package com.gavagame.JavaSpringGame.Models;
 
 import jakarta.persistence.*;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 @Entity
 @Table(name = "hero")
 public class Hero {
@@ -11,8 +9,9 @@ public class Hero {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long hero_ID;
 
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_ID", nullable = false, foreignKey = @ForeignKey(name = "fk_hero_group"))
-    private Long group_ID;
+    private HeroGroup group_ID;
 
     private String name;
     private int hp;
@@ -23,7 +22,7 @@ public class Hero {
     private int max_mana;
     private String image;
 
-    public Hero(Long hero_ID, Long group_ID, String name, int hp, int mana, int position, int max_atack, int max_hp, int max_mana, String image) {
+    public Hero(Long hero_ID, HeroGroup group_ID, String name, int hp, int mana, int position, int max_atack, int max_hp, int max_mana, String image) {
         this.hero_ID = hero_ID;
         this.group_ID = group_ID;
         this.name = name;
@@ -48,13 +47,6 @@ public class Hero {
         this.hero_ID = hero_ID;
     }
 
-    public Long getGroup_ID() {
-        return group_ID;
-    }
-
-    public void setGroup_ID(Long group_ID) {
-        this.group_ID = group_ID;
-    }
 
     public String getName() {
         return name;

@@ -2,6 +2,7 @@ package com.gavagame.JavaSpringGame.Models;
 
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
@@ -11,12 +12,13 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "game_session")
-public class Game_session {
+@EntityListeners(AuditingEntityListener.class)
+public class GameSession {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long session_ID;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "User_ID", nullable = false, foreignKey = @ForeignKey(name = "fk_session_creator"))
     private User creator;
 
@@ -36,11 +38,11 @@ public class Game_session {
         this.creator = creator;
     }
 
-    public List<Session_participants> getParticipants() {
+    public List<SessionParticipants> getParticipants() {
         return participants;
     }
 
-    public void setParticipants(List<Session_participants> participants) {
+    public void setParticipants(List<SessionParticipants> participants) {
         this.participants = participants;
     }
 
@@ -85,7 +87,7 @@ public class Game_session {
     }
 
     @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Session_participants> participants = new ArrayList<>();
+    private List<SessionParticipants> participants = new ArrayList<>();
 
     @CreatedDate
     private LocalDateTime creation_date;
@@ -99,7 +101,7 @@ public class Game_session {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Game_session that = (Game_session) o;
+        GameSession that = (GameSession) o;
         return Objects.equals(session_ID, that.session_ID) && Objects.equals(creator, that.creator);
     }
 

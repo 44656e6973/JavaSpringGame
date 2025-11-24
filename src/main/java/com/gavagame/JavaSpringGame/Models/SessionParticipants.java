@@ -3,12 +3,10 @@ package com.gavagame.JavaSpringGame.Models;
 
 import jakarta.persistence.*;
 
-import java.io.Serializable;
-
 @Entity
 @Table(name = "session_participants")
-public class Session_participants {
-    public Session_participants(SessionParticipantId id, Game_session session, User user, String role) {
+public class SessionParticipants {
+    public SessionParticipants(SessionParticipantId id, GameSession session, User user, String role) {
         this.id = id;
         this.session = session;
         this.user = user;
@@ -23,7 +21,7 @@ public class Session_participants {
     @JoinColumn(name = "Session_ID",
             foreignKey = @ForeignKey(name = "fk_participant_session"),
             nullable = false)
-    private Game_session session;
+    private GameSession session;
 
     @ManyToOne
     @MapsId("userId")
@@ -36,7 +34,7 @@ public class Session_participants {
     private String role;
 
 
-    public Session_participants() {
+    public SessionParticipants() {
 
     }
 
@@ -48,11 +46,11 @@ public class Session_participants {
         this.id = id;
     }
 
-    public Game_session getSession() {
+    public GameSession getSession() {
         return session;
     }
 
-    public void setSession(Game_session session) {
+    public void setSession(GameSession session) {
         this.session = session;
     }
 

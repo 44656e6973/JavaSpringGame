@@ -9,15 +9,16 @@ import java.util.List;
 
 @Entity
 @Table(name = "hero_group")
-public class Hero_group {
+public class HeroGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long group_ID;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "User_ID", nullable = false,
             foreignKey = @ForeignKey(name = "fk_group_owner"))
     private User owner;
+
 
     @OneToMany(mappedBy = "group_ID", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Hero> heroes = new ArrayList<>();
@@ -25,14 +26,14 @@ public class Hero_group {
     private LocalDateTime creation_date;
     private LocalDateTime end_date;
 
-    public Hero_group(Long group_ID, User owner, LocalDateTime creation_date, LocalDateTime end_date) {
+    public HeroGroup(Long group_ID, User owner, LocalDateTime creation_date, LocalDateTime end_date) {
         this.group_ID = group_ID;
         this.owner = owner;
         this.creation_date = creation_date;
         this.end_date = end_date;
     }
 
-    public Hero_group() {
+    public HeroGroup() {
 
     }
 
