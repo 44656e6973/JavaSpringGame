@@ -22,6 +22,23 @@ public class GameSession {
     @JoinColumn(name = "User_ID", nullable = false, foreignKey = @ForeignKey(name = "fk_session_creator"))
     private User creator;
 
+    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SessionParticipants> participants = new ArrayList<>();
+
+    public boolean canAddGuest() {
+        return "WAITING".equals(status) &&
+                participants.stream().filter(p -> "GUEST".equals(p.getRole())).count() == 0;
+    }
+
+    public boolean isHost(User user) {
+        return creator != null && creator.equals(user);
+    }
+
+    public boolean isGuest(User user) {
+        return participants.stream()
+                .anyMatch(p -> p.getUser().equals(user) && "GUEST".equals(p.getRole()));
+    }
+
     public Long getSession_ID() {
         return session_ID;
     }
@@ -86,8 +103,7 @@ public class GameSession {
         this.status = status;
     }
 
-    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SessionParticipants> participants = new ArrayList<>();
+
 
     @CreatedDate
     private LocalDateTime creation_date;

@@ -7,19 +7,28 @@ import jakarta.persistence.*;
 public class Hero {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Hero_ID")
     private Long hero_ID;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "group_ID", nullable = false, foreignKey = @ForeignKey(name = "fk_hero_group"))
+    @JoinColumn(name = "Group_ID", nullable = false, foreignKey = @ForeignKey(name = "fk_hero_group"))
     private HeroGroup group_ID;
 
+    @Column(name = "name", nullable = false)
     private String name;
+    @Column(name = "hp", nullable = false)
     private int hp;
+    @Column(name = "mana", nullable = false)
     private int mana;
+    @Column(name = "position", nullable = false)
     private int position;
+    @Column(name = "max_atack", nullable = false)
     private int max_atack;
+    @Column(name = "max_hp", nullable = false)
     private int max_hp;
+    @Column(name = "max_mana", nullable = false)
     private int max_mana;
+    @Column(name = "image", nullable = true)
     private String image;
 
     public Hero(Long hero_ID, HeroGroup group_ID, String name, int hp, int mana, int position, int max_atack, int max_hp, int max_mana, String image) {
