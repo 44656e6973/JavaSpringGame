@@ -1,8 +1,6 @@
 package com.gavagame.JavaSpringGame.Repository;
 
 import com.gavagame.JavaSpringGame.Models.GameSession;
-import com.gavagame.JavaSpringGame.Models.SessionParticipantId;
-import com.gavagame.JavaSpringGame.Models.SessionParticipants;
 import com.gavagame.JavaSpringGame.Models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

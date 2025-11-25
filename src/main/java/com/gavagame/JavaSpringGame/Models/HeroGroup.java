@@ -1,6 +1,8 @@
 package com.gavagame.JavaSpringGame.Models;
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import java.util.List;
 public class HeroGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Group_ID")
     private Long group_ID;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -20,11 +23,14 @@ public class HeroGroup {
     private User owner;
 
 
-
-    @OneToMany(mappedBy = "group_ID", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "heroGroup", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Hero> heroes = new ArrayList<>();
 
+    @CreatedDate
+    @Column(name = "creation_date", nullable = false)
     private LocalDateTime creation_date;
+    @DateTimeFormat
+    @Column(name = "end_date", nullable = true)
     private LocalDateTime end_date;
 
     public HeroGroup(Long group_ID, User owner, LocalDateTime creation_date, LocalDateTime end_date) {

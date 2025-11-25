@@ -12,87 +12,102 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "game_session")
-@EntityListeners(AuditingEntityListener.class)
 public class GameSession {
+    public GameSession(Long sessionId, User host, User guest, LocalDateTime creationDate, LocalDateTime endDate, String serverIp, int spectatorLimit, String status) {
+        this.sessionId = sessionId;
+        this.host = host;
+        this.guest = guest;
+        this.creationDate = creationDate;
+        this.endDate = endDate;
+        this.serverIp = serverIp;
+        this.spectatorLimit = spectatorLimit;
+        this.status = status;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long session_ID;
+    @Column(name = "session_id")
+    private Long sessionId;
+
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "host_id", foreignKey = @ForeignKey(name = "fk_session_host"))
+    private User host;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "User_ID", nullable = false, foreignKey = @ForeignKey(name = "fk_session_creator"))
-    private User creator;
+    @JoinColumn(name = "guest_id", foreignKey = @ForeignKey(name = "fk_session_guest"))
+    private User guest;
 
-    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SessionParticipants> participants = new ArrayList<>();
+    @Column(name = "creation_date", nullable = false, updatable = false)
+    private LocalDateTime creationDate;
 
-    public boolean canAddGuest() {
-        return "WAITING".equals(status) &&
-                participants.stream().filter(p -> "GUEST".equals(p.getRole())).count() == 0;
+    @Column(name = "end_date")
+    private LocalDateTime endDate;
+
+    @Column(name = "server_ip")
+    private String serverIp;
+
+    @Column(name = "spectator_limit")
+    private int spectatorLimit = 0;
+
+    @Column(name = "status", nullable = false)
+    private String status = "WAITING";
+
+    public Long getSessionId() {
+        return sessionId;
     }
 
-    public boolean isHost(User user) {
-        return creator != null && creator.equals(user);
+    public void setSessionId(Long sessionId) {
+        this.sessionId = sessionId;
     }
 
-    public boolean isGuest(User user) {
-        return participants.stream()
-                .anyMatch(p -> p.getUser().equals(user) && "GUEST".equals(p.getRole()));
+    public User getHost() {
+        return host;
     }
 
-    public Long getSession_ID() {
-        return session_ID;
+    public void setHost(User host) {
+        this.host = host;
     }
 
-    public void setSession_ID(Long session_ID) {
-        this.session_ID = session_ID;
+    public User getGuest() {
+        return guest;
     }
 
-    public User getCreator() {
-        return creator;
+    public void setGuest(User guest) {
+        this.guest = guest;
     }
 
-    public void setCreator(User creator) {
-        this.creator = creator;
+    public LocalDateTime getCreationDate() {
+        return creationDate;
     }
 
-    public List<SessionParticipants> getParticipants() {
-        return participants;
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
     }
 
-    public void setParticipants(List<SessionParticipants> participants) {
-        this.participants = participants;
+    public LocalDateTime getEndDate() {
+        return endDate;
     }
 
-    public LocalDateTime getCreation_date() {
-        return creation_date;
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
     }
 
-    public void setCreation_date(LocalDateTime creation_date) {
-        this.creation_date = creation_date;
+    public String getServerIp() {
+        return serverIp;
     }
 
-    public LocalDateTime getEnd_date() {
-        return end_date;
+    public void setServerIp(String serverIp) {
+        this.serverIp = serverIp;
     }
 
-    public void setEnd_date(LocalDateTime end_date) {
-        this.end_date = end_date;
+    public int getSpectatorLimit() {
+        return spectatorLimit;
     }
 
-    public String getServer_IP() {
-        return server_IP;
-    }
-
-    public void setServer_IP(String server_IP) {
-        this.server_IP = server_IP;
-    }
-
-    public int getSpectator_limit() {
-        return spectator_limit;
-    }
-
-    public void setSpectator_limit(int spectator_limit) {
-        this.spectator_limit = spectator_limit;
+    public void setSpectatorLimit(int spectatorLimit) {
+        this.spectatorLimit = spectatorLimit;
     }
 
     public String getStatus() {
@@ -103,26 +118,35 @@ public class GameSession {
         this.status = status;
     }
 
+    public GameSession() {
 
-
-    @CreatedDate
-    private LocalDateTime creation_date;
-    @DateTimeFormat
-    private LocalDateTime end_date;
-    private String server_IP;
-    private int spectator_limit;
-    private String status;
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        GameSession that = (GameSession) o;
-        return Objects.equals(session_ID, that.session_ID) && Objects.equals(creator, that.creator);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(session_ID, creator);
+
+    public boolean canAddGuest() {
+        return "WAITING".equals(status) && guest == null;
+    }
+
+    public boolean isHost(User user) {
+        return host != null && host.equals(user);
+    }
+
+    public boolean isGuest(User user) {
+        return guest != null && guest.equals(user);
+    }
+
+
+    @PrePersist
+    @PreUpdate
+    private void validate() {
+        if (host != null && host.equals(guest)) {
+            throw new IllegalArgumentException("Host cannot be guest in the same session");
+        }
+        if (spectatorLimit < 0) {
+            throw new IllegalArgumentException("Spectator limit cannot be negative");
+        }
+        if (endDate != null && endDate.isBefore(creationDate)) {
+            throw new IllegalArgumentException("End date must be after creation date");
+        }
     }
 }

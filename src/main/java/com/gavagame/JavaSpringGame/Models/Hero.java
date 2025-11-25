@@ -12,7 +12,7 @@ public class Hero {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Group_ID", nullable = false, foreignKey = @ForeignKey(name = "fk_hero_group"))
-    private HeroGroup group_ID;
+    private HeroGroup heroGroup;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -31,9 +31,9 @@ public class Hero {
     @Column(name = "image", nullable = true)
     private String image;
 
-    public Hero(Long hero_ID, HeroGroup group_ID, String name, int hp, int mana, int position, int max_atack, int max_hp, int max_mana, String image) {
+    public Hero(Long hero_ID, HeroGroup heroGroup, String name, int hp, int mana, int position, int max_atack, int max_hp, int max_mana, String image) {
         this.hero_ID = hero_ID;
-        this.group_ID = group_ID;
+        this.heroGroup = heroGroup;
         this.name = name;
         this.hp = hp;
         this.mana = mana;
