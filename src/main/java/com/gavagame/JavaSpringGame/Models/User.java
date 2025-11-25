@@ -2,6 +2,7 @@ package com.gavagame.JavaSpringGame.Models;
 
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "User_ID")
     private Long id;
 
     @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -26,9 +28,14 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SessionParticipants> participatedSessions = new ArrayList<>();
 
+    @Column(name = "login")
     private String login;
+    @Column(name = "password_hash")
     private String password_hash;
+    @Column(name = "name")
     private String name;
+    @CreatedDate
+    @Column(name = "creation_date")
     private LocalDateTime creation_date;
 
 
