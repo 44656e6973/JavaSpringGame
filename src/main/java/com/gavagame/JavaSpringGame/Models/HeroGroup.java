@@ -20,6 +20,7 @@ public class HeroGroup {
     private User owner;
 
 
+
     @OneToMany(mappedBy = "group_ID", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Hero> heroes = new ArrayList<>();
 

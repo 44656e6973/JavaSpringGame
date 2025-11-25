@@ -28,7 +28,7 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SessionParticipants> participatedSessions = new ArrayList<>();
 
-    @Column(name = "login")
+    @Column(name = "login", unique = true)
     private String login;
     @Column(name = "password_hash")
     private String password_hash;
@@ -57,6 +57,11 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public boolean hasActiveHostSession() {
+        return createdSessions.stream()
+                .anyMatch(session -> "ACTIVE".equals(session.getStatus()));
     }
 
     public String getLogin() {

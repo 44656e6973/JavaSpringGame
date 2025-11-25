@@ -1,5 +1,6 @@
-package com.gavagame.JavaSpringGame.Models;
+package com.gavagame.JavaSpringGame.Repository;
 
+import com.gavagame.JavaSpringGame.Models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
