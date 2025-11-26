@@ -2,9 +2,7 @@ package com.gavagame.JavaSpringGame.Models;
 
 
 import jakarta.persistence.*;
-import org.springframework.data.annotation.CreatedDate;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
