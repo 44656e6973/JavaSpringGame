@@ -3,6 +3,8 @@ package com.gavagame.JavaSpringGame.Models;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +27,12 @@ public class User {
 
     @Column(name = "login", nullable = false, unique = true)
     private String login;
+
+    @Column(name = "username", nullable = false, unique = true)
+    private String username;
+
+    @Column(name = "creation_date", nullable = false)
+    private LocalDateTime creation_date;
 
     public boolean hasActiveHostSession() {
         return hostedSessions.stream()

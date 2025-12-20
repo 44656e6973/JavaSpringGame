@@ -2,12 +2,13 @@ package com.gavagame.JavaSpringGame.Models;
 
 import jakarta.persistence.*;
 
+import java.net.InetAddress;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "game_session")
 public class GameSession {
-    public GameSession(Long sessionId, User host, User guest, LocalDateTime creationDate, LocalDateTime endDate, String serverIp, int spectatorLimit, String status) {
+    public GameSession(Long sessionId, User host, User guest, LocalDateTime creationDate, LocalDateTime endDate, InetAddress serverIp, int spectatorLimit, String status) {
         this.sessionId = sessionId;
         this.host = host;
         this.guest = guest;
@@ -40,7 +41,7 @@ public class GameSession {
     private LocalDateTime endDate;
 
     @Column(name = "server_ip")
-    private String serverIp;
+    private InetAddress serverIp;
 
     @Column(name = "spectator_limit")
     private int spectatorLimit = 0;
@@ -88,13 +89,7 @@ public class GameSession {
         this.endDate = endDate;
     }
 
-    public String getServerIp() {
-        return serverIp;
-    }
 
-    public void setServerIp(String serverIp) {
-        this.serverIp = serverIp;
-    }
 
     public int getSpectatorLimit() {
         return spectatorLimit;
@@ -116,6 +111,13 @@ public class GameSession {
 
     }
 
+    public void setServerIp(InetAddress serverIp) {
+        this.serverIp = serverIp;
+    }
+
+    public InetAddress getServerIp() {
+        return serverIp;
+    }
 
     public boolean canAddGuest() {
         return "WAITING".equals(status) && guest == null;
