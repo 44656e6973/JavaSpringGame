@@ -25,8 +25,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Меню (если добавите мобильное меню позже)
-    console.log("Сайт ShadowRealm загружен!");
 
     // Пример: показ уведомления при клике на "Играть"
     const playBtn = document.querySelector('.btn-primary');

@@ -1,3 +1,9 @@
+if (window.location.protocol !== 'https:') {
+    console.warn('Соединение не защищено! Используйте HTTPS');
+
+}
+
+else{
 document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.getElementById('loginForm');
     const statusMessage = document.getElementById('statusMessage');
@@ -9,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
         month: 'long',
         day: 'numeric'
     }));
+
 
     loginForm.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -33,12 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
             statusMessage.style.display = 'none';
         }, 3000);
 
-        // Логирование (для демонстрации)
-        console.log('Попытка входа:', {
-            username,
-            password: '••••••••' // Никогда не логируйте реальные пароли
-        });
-    });
+
 
     // Добавляем визуальную обратную связь для поля пароля
     const passwordField = document.getElementById('password');
@@ -68,3 +70,4 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('Переход на страницу восстановления пароля');
     });
 });
+}
