@@ -16,7 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
-@Configuration
+//@Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
@@ -26,6 +26,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(
                                 "/login",
+                                "/api/auth/**",
                                 "/favicon.ico",
                                 "/css/**",
                                 "/js/**",
@@ -37,7 +38,7 @@ public class SecurityConfig {
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .loginProcessingUrl("/login") // URL для обработки формы входа
+                        .loginProcessingUrl("/perform_login") // URL для обработки формы входа
                         .usernameParameter("username") // имя параметра для логина
                         .passwordParameter("password") // имя параметра для пароля
                         .defaultSuccessUrl("/home", true) // ВСЕГДА перенаправлять на /home после успешного входа
@@ -78,12 +79,11 @@ public class SecurityConfig {
         return new InMemoryUserDetailsManager(user);
     }
 
-    // Опционально: кастомный обработчик успешной аутентификации
-    @Bean
-    public AuthenticationSuccessHandler successHandler() {
-        SimpleUrlAuthenticationSuccessHandler handler = new SimpleUrlAuthenticationSuccessHandler();
-        handler.setDefaultTargetUrl("/"); // Всегда перенаправлять на /home
-        handler.setAlwaysUseDefaultTargetUrl(true); // Игнорировать сохраненный запрос
-        return handler;
-    }
+//    @Bean
+//    public AuthenticationSuccessHandler successHandler() {
+//        SimpleUrlAuthenticationSuccessHandler handler = new SimpleUrlAuthenticationSuccessHandler();
+//        handler.setDefaultTargetUrl("/"); // Всегда перенаправлять на /home
+//        handler.setAlwaysUseDefaultTargetUrl(true); // Игнорировать сохраненный запрос
+//        return handler;
+//    }
 }

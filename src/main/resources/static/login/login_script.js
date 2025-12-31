@@ -6,21 +6,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.getElementById('loginForm');
     const statusMessage = document.getElementById('statusMessage');
 
-    // Вывод текущей даты в консоль
-    console.log('Current date:', new Date().toLocaleString('ru-RU', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    }));
-
     loginForm.addEventListener('submit', async function(e) {
         e.preventDefault();
 
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
 
-        // Базовая валидация
+        const data = {
+            username: username,
+            password: password
+        }
+
         if (!username || !password) {
             statusMessage.textContent = 'Пожалуйста, заполните все поля';
             statusMessage.className = 'status-message error';
@@ -28,59 +24,58 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         try {
-            // 1. Генерируем ключевую пару RSA
-            const keyPair = await window.crypto.subtle.generateKey(
-                {
-                    name: "RSA-OAEP",
-                    modulusLength: 4096,
-                    publicExponent: new Uint8Array([1, 0, 1]),
-                    hash: "SHA-256",
-                },
-                true,
-                ["encrypt", "decrypt"]
-            );
 
-            // 2. Кодируем пароль
-            const encoder = new TextEncoder();
-            const encodedPassword = encoder.encode(password);
+        const response = await fetch(
+        'http://localhost:8080/api/auth',
+        {
+        method:'POST',
+        headers:{
+        'Content-Type':'application/json'
+        },
+        body:JSON.stringify(data)
+        }
+        )
+        console.log(response)
 
-            // 3. Шифруем пароль с использованием публичного ключа
-            const encryptedData = await window.crypto.subtle.encrypt(
-                {
-                    name: "RSA-OAEP"
-                },
-                keyPair.publicKey, // Используем публичный ключ для шифрования
-                encodedPassword
-            );
-
-            // 4. Конвертируем зашифрованные данные в Base64 для отправки
-            const encryptedBase64 = btoa(
-                String.fromCharCode.apply(null, new Uint8Array(encryptedData))
-            );
-
-            console.log('Зашифрованный пароль (Base64):', encryptedBase64);
-            console.log('Публичный ключ:', keyPair.publicKey);
-
-            // В реальном приложении здесь отправка данных на сервер
-            // Отправляем: username, encryptedBase64 и возможно публичный ключ
+//        Если нужно сделать шифрование
+//            const keyPair = await window.crypto.subtle.generateKey(
+//                {
+//                    name: "RSA-OAEP",
+//                    modulusLength: 4096,
+//                    publicExponent: new Uint8Array([1, 0, 1]),
+//                    hash: "SHA-256",
+//                },
+//                true,
+//                ["encrypt", "decrypt"]
+//            );
+//
+//            const encoder = new TextEncoder();
+//            const encodedPassword = encoder.encode(password);
+//            const encryptedData = await window.crypto.subtle.encrypt(
+//                {
+//                    name: "RSA-OAEP"
+//                },
+//                keyPair.publicKey,
+//                encodedPassword
+//            );
+//            const encryptedBase64 = btoa(
+//                String.fromCharCode.apply(null, new Uint8Array(encryptedData))
+//            );
 
             statusMessage.textContent = 'Успешный вход в систему!';
             statusMessage.className = 'status-message success';
 
-            // Очистка формы через 3 секунды
             setTimeout(() => {
                 loginForm.reset();
                 statusMessage.style.display = 'none';
             }, 3000);
 
         } catch (error) {
-            console.error('Ошибка при шифровании:', error);
             statusMessage.textContent = 'Ошибка при обработке данных';
             statusMessage.className = 'status-message error';
         }
     });
 
-    // Добавляем визуальную обратную связь для поля пароля
     const passwordField = document.getElementById('password');
     passwordField.addEventListener('focus', function() {
         this.placeholder = '';
