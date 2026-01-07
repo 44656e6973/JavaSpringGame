@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
 
         const response = await fetch(
-        'http://localhost:8080/api/auth',
+        'http://localhost:8443/api/auth',
         {
         method:'POST',
         headers:{
@@ -36,6 +36,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         )
         console.log(response)
+        if(response.ok){
+        console.log("Успех");
+        }else
 
 //        Если нужно сделать шифрование
 //            const keyPair = await window.crypto.subtle.generateKey(
