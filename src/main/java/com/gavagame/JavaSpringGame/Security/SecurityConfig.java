@@ -17,6 +17,11 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -25,10 +30,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(
                                 "/login",
-                                "/api/**",
                                 "/favicon.ico",
                                 "/css/**",
                                 "/js/**",
@@ -40,11 +45,19 @@ public class SecurityConfig {
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .loginProcessingUrl("/perform_login") // URL для обработки формы входа
-                        .usernameParameter("username") // имя параметра для логина
-                        .passwordParameter("password") // имя параметра для пароля
-                        .defaultSuccessUrl("/home", true) // ВСЕГДА перенаправлять на /home после успешного входа
-                        .failureUrl("/login?error=true") // URL при ошибке входа
+                        .loginProcessingUrl("/perform_login")
+                        .usernameParameter("username")
+                        .passwordParameter("password")
+                        .successHandler((request, response, authentication) -> {
+                            response.setStatus(200);
+                            response.setContentType("application/json");
+                            response.getWriter().write("{\"status\": \"success\", \"url\": \"/home\"}");
+                        })
+                        .failureHandler((request, response, exception) -> {
+                            response.setStatus(401);
+                            response.setContentType("application/json");
+                            response.getWriter().write("{\"status\": \"error\", \"message\": \"Invalid credentials\"}");
+                        })
                         .permitAll()
                 )
                 .logout(logout -> logout
@@ -53,12 +66,21 @@ public class SecurityConfig {
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                         .permitAll()
+                ).exceptionHandling(ex -> ex
+                        .authenticationEntryPoint((request, response, authException) -> {
+                            if (request.getRequestURI().startsWith("/js/") || request.getRequestURI().startsWith("/css/")) {
+                                response.sendError(401);
+                            } else {
+                                response.sendRedirect("/login");
+                            }
+                        })
                 )
 
-                .sessionManagement(session -> session
-                        .maximumSessions(1)
-                        .maxSessionsPreventsLogin(false)
-                );
+//                .sessionManagement(session -> session
+//                        .maximumSessions(1)
+//                        .maxSessionsPreventsLogin(false))
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .csrf(AbstractHttpConfigurer::disable);
                 
 
         return http.build();
@@ -92,4 +114,17 @@ public class SecurityConfig {
 public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
     return config.getAuthenticationManager();
 }
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        // Разрешаем ваш адрес (обязательно укажите https и порт 8443)
+        configuration.setAllowedOrigins(List.of("https://localhost:8443"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 }
