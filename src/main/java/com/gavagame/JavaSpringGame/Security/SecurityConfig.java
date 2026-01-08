@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -48,6 +49,8 @@ public class SecurityConfig {
                         .loginProcessingUrl("/perform_login")
                         .usernameParameter("username")
                         .passwordParameter("password")
+                        .defaultSuccessUrl("/home", true)
+                        .failureUrl("/login?error=true")
                         .successHandler((request, response, authentication) -> {
                             response.setStatus(200);
                             response.setContentType("application/json");
@@ -76,9 +79,8 @@ public class SecurityConfig {
                         })
                 )
 
-//                .sessionManagement(session -> session
-//                        .maximumSessions(1)
-//                        .maxSessionsPreventsLogin(false))
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable);
                 

@@ -23,7 +23,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     },
-                    body: formData.toString()
+                    body: formData.toString(),
+                    credentials: 'include'
                 });
 
                 // 3. Проверяем, куда нас перенаправил Spring
