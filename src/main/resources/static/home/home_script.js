@@ -26,11 +26,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 
-    // Пример: показ уведомления при клике на "Играть"
     const playBtn = document.querySelector('.btn-primary');
     if (playBtn) {
         playBtn.addEventListener('click', function() {
-            alert("Добро пожаловать в ShadowRealm! 🎮\nНовый сезон уже доступен.");
+            window.location.href = 'https://localhost:8443/login';
         });
     }
+
+    const playBtncopy = document.querySelector('.btn-gradient');
+    if(playBtncopy){
+    playBtncopy.addEventListener('click', function(){
+        window.location.href = 'https://localhost:8443/login';
+    })}
 });

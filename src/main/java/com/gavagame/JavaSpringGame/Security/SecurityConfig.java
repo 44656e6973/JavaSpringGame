@@ -34,6 +34,7 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(
+                                "/home",
                                 "/login",
                                 "/favicon.ico",
                                 "/css/**",
@@ -49,12 +50,11 @@ public class SecurityConfig {
                         .loginProcessingUrl("/perform_login")
                         .usernameParameter("username")
                         .passwordParameter("password")
-                        .defaultSuccessUrl("/home", true)
                         .failureUrl("/login?error=true")
                         .successHandler((request, response, authentication) -> {
                             response.setStatus(200);
                             response.setContentType("application/json");
-                            response.getWriter().write("{\"status\": \"success\", \"url\": \"/home\"}");
+                            response.getWriter().write("{\"status\": \"success\", \"url\": \"/start\"}");
                         })
                         .failureHandler((request, response, exception) -> {
                             response.setStatus(401);
@@ -105,13 +105,6 @@ public class SecurityConfig {
         return new InMemoryUserDetailsManager(user);
     }
 
-//    @Bean
-//    public AuthenticationSuccessHandler successHandler() {
-//        SimpleUrlAuthenticationSuccessHandler handler = new SimpleUrlAuthenticationSuccessHandler();
-//        handler.setDefaultTargetUrl("/"); // Всегда перенаправлять на /home
-//        handler.setAlwaysUseDefaultTargetUrl(true); // Игнорировать сохраненный запрос
-//        return handler;
-//    }
 @Bean
 public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
     return config.getAuthenticationManager();
