@@ -1,12 +1,13 @@
 .thanks_for_donate {
     background-color: #f5f7fa;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        padding: 20px;
-        flex-direction: column;
-        font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 20px;
+    flex-direction: column;
+    font-size: 30px;
+
 }
 .backline{
     background-color: white;
@@ -23,20 +24,24 @@
    background-color: #edf1fa;
    color: black;
    border: none;
-
-
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
    border-radius: 5px;
    cursor: pointer;
    font-size: 16px;
-
+   margin-bottom:15px
 }
 body {
     background-color: #f5f7fa;
     display: flex;
     flex-direction: column;
 }
-section{
-    height: 400px;
-    line-height: 100px;
-    text-align: center;
+
+.toHomeBTN:active {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 #2980b9;
+}
+
+.toHomeBTN.pressed {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 #2980b9;
 }
