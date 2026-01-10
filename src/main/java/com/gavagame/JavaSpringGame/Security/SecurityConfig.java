@@ -51,6 +51,7 @@ public class SecurityConfig {
                             response.setStatus(200);
                             response.setContentType("application/json");
                             response.getWriter().write("{\"status\": \"success\", \"url\": \"/start\"}");
+                            response.sendRedirect("/start");
                         })
                         .failureHandler((request, response, exception) -> {
                             response.setStatus(401);
