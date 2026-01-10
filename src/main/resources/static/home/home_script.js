@@ -33,9 +33,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    const playBtncopy = document.querySelector('.btn-gradient');
-    if(playBtncopy){
-    playBtncopy.addEventListener('click', function(){
+    const playButtoncopy = document.querySelector('.btn-gradient');
+    if(playButtoncopy){
+    playButtoncopy.addEventListener('click', function(){
         window.location.href = 'https://localhost:8443/login';
+    })}
+    const donationButton = document.querySelector('[data-page="donate"]');
+    if(donationButton){
+    donationButton.addEventListener('click', function(){
+        window.location.href = 'https://localhost:8443/donation';
     })}
 });

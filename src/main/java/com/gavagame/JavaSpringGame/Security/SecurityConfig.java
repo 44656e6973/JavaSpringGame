@@ -35,12 +35,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(
                                 "/home",
+                                "/donation",
                                 "/login",
-                                "/favicon.ico",
-                                "/css/**",
-                                "/js/**",
-                                "/images/**",
-                                "/icons/**",
                                 "/static/**"
                         ).permitAll()
                         .anyRequest().authenticated()
