@@ -112,7 +112,7 @@ public AuthenticationManager authenticationManager(AuthenticationConfiguration c
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        // Разрешаем ваш адрес (обязательно укажите https и порт 8443)
+
         configuration.setAllowedOrigins(List.of("https://localhost:8443"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
