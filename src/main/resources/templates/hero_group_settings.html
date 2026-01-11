@@ -1,10 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кастомизация персонажа</title>
+    <link rel="stylesheet" href="../static/hero_custom/hero_custom.css">
 </head>
 <body>
+<div class="container">
+    <header>
+        <h1>Кастомизация персонажа</h1>
+        <p class="subtitle">Выберите внешность и распределите характеристики</p>
+    </header>
 
+    <div class="main-content">
+        <section class="avatar-section">
+            <h2 class="section-title">Выбор фотокарточки героя</h2>
+            <div class="avatar-container">
+                <img id="selected-avatar" src="https://images.unsplash.com/photo-1579546929662-711aa81148cf?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Выбранный аватар" class="selected-avatar">
+            </div>
+            <div class="avatar-grid" id="avatar-options">
+                <!-- Аватары будут добавлены через JavaScript -->
+            </div>
+        </section>
+
+        <section class="stats-section">
+            <h2 class="section-title">Распределение характеристик</h2>
+            <div class="stats-info">
+                <div>Доступно очков характеристик:</div>
+                <div class="points-remaining">Осталось: <span id="points-remaining" class="points-value">10</span></div>
+            </div>
+
+            <div id="stats-container">
+                <!-- Статы будут добавлены через JavaScript -->
+            </div>
+
+            <div class="buttons">
+                <button id="reset-stats" class="btn btn-secondary">Сбросить статы</button>
+                <button id="save-character" class="btn btn-primary">Сохранить персонажа</button>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>Используйте очки характеристик с умом. После сохранения изменения будут применены к вашему персонажу.</p>
+    </footer>
+</div>
+
+<script src="../static/hero_custom/hero_custom.js"></script>
 </body>
 </html>
